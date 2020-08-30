@@ -49,8 +49,8 @@ for i in {1..5}; do
 		pg_dump --file="/pg_dump/$dbname.sql" --no-owner --no-privileges --dbname="$dbname" || true  # Ignore failures
 	done
 
-	# echo "Dumping global objects for '$PGHOST'"
-	# pg_dumpall --file="/pg_dump/!globals.sql" --globals-only
+	echo "Dumping global objects for '$PGHOST'"
+	pg_dumpall --file="/pg_dump/!globals.sql" --globals-only
 
 	echo "Sending database dumps to S3"
 	while ! restic backup --host "$HOSTNAME" "/pg_dump"; do
